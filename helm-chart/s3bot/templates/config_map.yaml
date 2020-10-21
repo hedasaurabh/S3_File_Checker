@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+  bucket_name: {{ .Values.aws.bucket_name | quote }}
+  region_name: {{ .Values.aws.region_name | quote}}
+  slack_url: {{ .Values.slack.slack_url | quote }}
+kind: ConfigMap
+metadata:
+  name: s3bot-config
+  namespace: s3-monitoring-bot
