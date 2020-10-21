@@ -1,0 +1,5 @@
+apiVersion: v2
+name: s3bot
+version: 1.0.1
+description: S3 boot chart
+appVersion: 1.0.1

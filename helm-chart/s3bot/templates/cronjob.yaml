@@ -1,0 +1,34 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron-s3-pf9cli-monotoring
+  namespace: s3-monitoring-bot
+spec:
+  schedule: "*/120 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cron-s3-pf9cli-monotoring
+            image: hedasaurabh/s3-bucket-monitoring:latest
+            envFrom:
+              - secretRef:
+                  name: pf9-s3-secret
+            env:
+              - name: bucket_name
+                valueFrom:
+                    configMapKeyRef:
+                       name: s3bot-config
+                       key: bucket_name
+              - name: region_name
+                valueFrom:
+                    configMapKeyRef:
+                       name: s3bot-config
+                       key: region_name
+              - name: slack_url
+                valueFrom:
+                    configMapKeyRef:
+                       name: s3bot-config
+                       key: slack_url
+          restartPolicy: OnFailure
