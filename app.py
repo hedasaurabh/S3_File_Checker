@@ -15,6 +15,7 @@ slack_url = os.environ ['slack_url']
 def slack_msg(bucket_name,s3_file):
     S3_url = "https://s3"+region_name+".amazonaws.com/"+bucket_name+"/"+s3_file
     url = slack_url
+    du_url = s3_file.split("/")[0]
     header = {"Content-type": "application/json"}
     payload = {
 	"blocks": [
@@ -29,7 +30,7 @@ def slack_msg(bucket_name,s3_file):
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "*S3_Bucket:* "+bucket_name +"\n *File_Name:* "+s3_file+" \n *URL: *"+S3_url
+				"text": "*DU-URL:* "+du_url+"\n"+ "*S3_Bucket:* "+bucket_name +"\n *File_Name:* "+s3_file+" \n *URL: *"+S3_url
 			},
 		},
 	]
